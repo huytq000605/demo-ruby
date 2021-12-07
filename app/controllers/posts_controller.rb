@@ -26,8 +26,8 @@ class PostsController < ApplicationController
 		begin
 			@post = Post.where(params[:id])
 			authorize @post
-		# rescue ActiveRecord::RecordNotFound
-		# 	return render json: {message: "Post not found"}
+		rescue ActiveRecord::RecordNotFound
+			return render json: {message: "Post not found"}
 		end
 		render json: @post
 	end
