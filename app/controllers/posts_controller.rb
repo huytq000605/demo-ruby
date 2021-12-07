@@ -1,9 +1,9 @@
 class PostsController < ApplicationController
 	skip_before_action :verify_authenticity_token
-	helper_method :params_verify
 	def index
 		@posts = Post.includes(:comments).all
-		render json: @posts
+			
+		render json: @posts.to_json(include: :comments)
 	end
 
 	def create 
@@ -15,8 +15,13 @@ class PostsController < ApplicationController
 		end
 	end
 
+	def show
+		@post = Post.find(id: params[:id])
+		render json: @post
+	end
+
 	def update
-		@post = Post.where(id: params[id])
+		@post = Post.where(id: params[:id])
 		if @post.update(params_verify)
 			render json: @post
 		else
@@ -25,7 +30,7 @@ class PostsController < ApplicationController
 	end
 
 	def delete
-		@post = Post.where(id: params[id])
+		@post = Post.where(id: params[:id])
 		if @post.destroy
 			render json: {message: "Success"}
 		else
