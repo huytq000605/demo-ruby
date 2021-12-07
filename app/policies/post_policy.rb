@@ -1,4 +1,11 @@
 class PostPolicy < ApplicationPolicy
-	def initialize(super, user, post)
-		super()
+	def initialize(user, post)
+		super(user)
 		@post = post
+	end
+
+	def show?
+		@post.name.blank?
+	end
+		
+end

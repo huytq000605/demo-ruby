@@ -1,7 +1,7 @@
 class ApplicationPolicy
 	attr_reader :user
-  
+
 	def initialize(user)
-	  @user = user
+		@user = user
 	end
-  end
+end

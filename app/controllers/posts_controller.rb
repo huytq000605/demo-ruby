@@ -1,4 +1,9 @@
 class PostsController < ApplicationController
+
+	def current_user
+		"abc"
+	end
+
 	def index
 		@posts = Post.includes(:comments).all
 			
@@ -19,9 +24,10 @@ class PostsController < ApplicationController
 			render json: {message: "Invalid parameters"}
 		end
 		begin
-			@post = Post.find(id: params[:id])
-		rescue ActiveRecord::RecordNotFound
-			return render json: {message: "Post not found"}
+			@post = Post.where(params[:id])
+			authorize @post
+		# rescue ActiveRecord::RecordNotFound
+		# 	return render json: {message: "Post not found"}
 		end
 		render json: @post
 	end
