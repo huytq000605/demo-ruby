@@ -5,7 +5,7 @@ class PostPolicy < ApplicationPolicy
 	end
 
 	def show?
-		@post.name.blank?
+		not @post.body.blank?
 	end
 		
 end

@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-
+	before_action :need_have_id, only: [:show, :update, :destroy]
 	def current_user
 		"abc"
 	end
@@ -15,43 +15,30 @@ class PostsController < ApplicationController
 		if @post.save
 			render json: @post
 		else
-			render json: {message: @post.errors.full_messages }
+			invalid_argument(@post.errors.full_messages)
 		end
 	end
 
 	def show
-		if dont_have_id
-			render json: {message: "Invalid parameters"}
-		end
-		begin
-			@post = Post.where(params[:id])
-			authorize @post
-		# rescue ActiveRecord::RecordNotFound
-		# 	return render json: {message: "Post not found"}
-		end
+		@post = Post.find_by!(id: params[:id])
+		authorize @post
 		render json: @post
 	end
 
 	def update
-		if dont_have_id
-			render json: {message: "Invalid parameters"}
-		end
 		@post = Post.where(id: params[:id])
 		if @post.update(params_verify)
 			render json: @post
 		else
-			render json: {message: @post.errors.full_messages }
+			invalid_argument(@post.errors.full_messages)
 		end
 	end
 
 	def destroy
-		if dont_have_id
-			return render json: {message: "Invalid parameters"}
-		end
 		if Post.destroy(params[:id])
 			render json: {message: "Success"}
 		else
-			render json: {message: @post.errors.full_messages }
+			invalid_argument(@post.errors.full_messages)
 		end
 	end
 
@@ -60,11 +47,13 @@ class PostsController < ApplicationController
 			params.require(:post).permit(:title, :body)
 		end
 
-		def dont_have_id
-			params[:id].blank? or params[:id].nil?
+		def need_have_id
+			if params[:id].blank? or params[:id].nil? or params[:id].to_i <= 0
+				respond_to do |format| 
+					format.json {render json: {message: "No id provided"}, status: 400}
+				end
+			end
 		end
-			
-
 
 
 end
