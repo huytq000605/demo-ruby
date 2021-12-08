@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  skip_before_action :authorized, :only => [:login, :create]
+  skip_before_action :authorized, only: [:login]
+  before_action :only_admin, except: [:login]
 
   def login
     if @user.nil?
@@ -8,11 +9,11 @@ class UsersController < ApplicationController
         password = params[:password]
         @user = User.find_by!({email: email})
         if not @user.authenticate(password)
-          render json:{message: "Unauthorized"}, status: 401
+          unauthorized
           return
         end
       else
-        render json:{message: "Unauthorized"}, status: 401
+        unauthorized
         return
       end
     end

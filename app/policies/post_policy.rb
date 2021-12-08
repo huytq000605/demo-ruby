@@ -7,5 +7,13 @@ class PostPolicy < ApplicationPolicy
 	def show?
 		not @post.body.blank?
 	end
+
+	def update?
+		@user['role'] == 'admin'
+	end
+
+	def destroy?
+		@user['role'] == 'admin'
+	end
 		
 end

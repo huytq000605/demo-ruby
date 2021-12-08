@@ -1,8 +1,5 @@
 class PostsController < ApplicationController
 	before_action :need_have_id, only: [:show, :update, :destroy]
-	def current_user
-		"abc"
-	end
 
 	def index
 		@posts = Post.includes(:comments).all
@@ -27,6 +24,7 @@ class PostsController < ApplicationController
 
 	def update
 		@post = Post.where(id: params[:id])
+		authorize @post
 		if @post.update(params_verify)
 			render json: @post
 		else

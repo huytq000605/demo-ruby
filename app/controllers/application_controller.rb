@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
 	include Pundit
-	skip_before_action :verify_authenticity_token
+	skip_before_action :verify_authenticity_token # csrf
 	before_action :set_default_response_format
 	before_action :authorized
 
@@ -39,18 +39,32 @@ class ApplicationController < ActionController::Base
 		@current_user
 	end
 
+	def unauthorized
+		render json:{message: "Unauthorized"}, status: 401
+	end
+
+
 	def authorized
 		header = request.headers['Authorization']
-		if not header.start_with? 'Bearer '
-			render json:{message: "Unauthorized"}, status: 401
+		if header.nil? or not header.start_with? 'Bearer '
+			unauthorized
 			return
 		end
 		token = header[7..-1]
-		payload = Auth::Jwt.decode(token)[0]
+		payload = Auth::Jwt.decode(token)
 		if payload.nil?
-			render json:{message: "Unauthorized"}, status: 401
+			unauthorized
 			return
 		end
+		payload = payload[0]
 		@current_user = {email: payload['email'], role: payload['role']}
+		puts "TQHHHH", @current_user
+	end
+
+	def only_admin
+		if current_user[:email] != 'admin'
+			unauthorized
+			return
+		end
 	end
 end
