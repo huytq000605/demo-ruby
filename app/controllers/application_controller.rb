@@ -58,7 +58,6 @@ class ApplicationController < ActionController::Base
 		end
 		payload = payload[0]
 		@current_user = {email: payload['email'], role: payload['role']}
-		puts "TQHHHH", @current_user
 	end
 
 	def only_admin
