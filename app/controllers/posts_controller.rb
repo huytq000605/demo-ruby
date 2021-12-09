@@ -3,7 +3,6 @@ class PostsController < ApplicationController
 
 	def index
 		@posts = Post.includes(:comments).all
-			
 		render json: @posts.to_json(include: :comments)
 	end
 
