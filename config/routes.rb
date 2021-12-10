@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'grpc/call'
   get 'kafka/produce'
   resources :posts do
     resources :comments, shalow: true

@@ -27,12 +27,14 @@ gem 'pundit'
 gem 'grape'
 gem 'karafka'
 gem 'waterdrop'
+gem 'eh_protobuf', path: "../grpc_proto"
 
 source 'https://gem.fury.io/eh-devops/' do
   gem 'kafka_handle_event'
   # gem 'eh_protobuf'
-  # gem 'eh_protobuf_core' 
+  gem 'eh_protobuf_core' 
 end
+
 
 
 # Use Active Storage variant
