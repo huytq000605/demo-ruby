@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.0.0'
+ruby '2.6.6'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.1.4', '>= 6.1.4.1'
@@ -26,9 +26,12 @@ gem 'jwt'
 gem 'pundit'
 gem 'grape'
 gem 'karafka'
+gem 'waterdrop'
 
 source 'https://gem.fury.io/eh-devops/' do
   gem 'kafka_handle_event'
+  # gem 'eh_protobuf'
+  # gem 'eh_protobuf_core' 
 end
 
 

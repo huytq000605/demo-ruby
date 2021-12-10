@@ -18,7 +18,7 @@ module Grape
 				requires :id, type: Integer
 			end
 			get ":id" do
-				Comment.where(id: params[:id]).first
+				comment = Comment.find_by!(id: params[:id])
 			end
 
 			desc 'create'

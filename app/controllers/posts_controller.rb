@@ -22,7 +22,7 @@ class PostsController < ApplicationController
 	end
 
 	def update
-		@post = Post.where(id: params[:id])
+		@post = Post.find_by!(id: params[:id])
 		authorize @post
 		if @post.update(params_verify)
 			render json: @post

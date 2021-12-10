@@ -9,11 +9,11 @@ class PostPolicy < ApplicationPolicy
 	end
 
 	def update?
-		@user['role'] == 'admin'
+		@user[:role] == 'admin'
 	end
 
 	def destroy?
-		@user['role'] == 'admin'
+		@user[:role] == 'admin'
 	end
 		
 end
