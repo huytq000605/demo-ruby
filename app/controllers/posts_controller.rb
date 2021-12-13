@@ -7,6 +7,18 @@ class PostsController < ApplicationController
 	end
 
 	def create 
+		rpc = EhProtobuf::Ats::Client.check_org_has_open_job(organisation_id: params[:organisation_id])
+		debugger
+		if rpc.success?
+			has_open_job = rpc.result.has_open_job
+			if !has_open_job
+				render json: {message: "No open job"}
+				return
+			end
+		else
+			show_errors rpc.first_error
+			return
+		end
 		@post = Post.new(params_verify)
 		if @post.save
 			render json: @post
