@@ -43,6 +43,15 @@ class ApplicationController < ActionController::Base
 		render json:{message: "Unauthorized"}, status: 401
 	end
 
+	def is_member
+		rpc = EhProtobuf::EmploymentHero::Client.is_member(email: current_user[:email])
+		debugger
+		if rpc.success?
+			return rpc.result.is_member
+		else
+			return false
+		end
+	end
 
 	def authorized
 		header = request.headers['Authorization']
