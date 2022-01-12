@@ -1,0 +1,2 @@
+class JobToken < ApplicationRecord
+end

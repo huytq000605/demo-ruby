@@ -30,6 +30,7 @@ gem 'karafka'
 gem 'waterdrop'
 gem 'eh_protobuf', path: "../grpc_proto"
 gem 'sidekiq'
+gem 'google-api-client'
 
 source 'https://gem.fury.io/eh-devops/' do
   gem 'kafka_handle_event'

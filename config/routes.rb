@@ -1,6 +1,8 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  get 'test', to: 'gmail#test'
+  get 'gmail', to: 'gmail#index'
   get 'grpc/call'
   get 'kafka/produce'
   resources :posts do
