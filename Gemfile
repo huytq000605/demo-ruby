@@ -32,6 +32,10 @@ gem 'eh_protobuf', path: "../grpc_proto"
 gem 'sidekiq'
 gem 'google-api-client'
 gem 'rmail'
+gem 'omniauth-oauth2'
+gem 'omniauth-rails_csrf_protection'
+gem 'httparty'
+
 
 source 'https://gem.fury.io/eh-devops/' do
   gem 'kafka_handle_event'

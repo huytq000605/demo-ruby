@@ -64,24 +64,31 @@ class GmailController < ApplicationController
   end
 
   def get_email
-    debugger
-    credentials = authorize(params['abc'])
+    credentials = authorize()
     return if credentials.nil?
 
     gmail = Gmail::GmailService.new
     gmail.authorization = credentials
-    emails = gmail.list_user_messages('me', include_spam_trash: false)
+    emails = gmail.list_user_messages('me', include_spam_trash: false, q: "")
+    debugger
     emails
   end
 
-  def authorize(old_url)
+  def get_detail
+    gmail = Gmail::GmailService.new
+    gmail.authorization = credentials
+  end
+
+
+
+  def authorize
     job = params[:job]
     client_id = Google::Auth::ClientId.from_file CREDENTIALS_PATH
     token_store = TokenStore.new
     authorizer = Google::Auth::WebUserAuthorizer.new client_id, SCOPE, token_store, 'http://localhost:3000/test'
     credentials = authorizer.get_credentials job
     if credentials.nil?
-      url = authorizer.get_authorization_url redirect_to: old_url, state: {job: job}
+      url = authorizer.get_authorization_url state: {job: job}
       redirect_to url
       return nil
     end
