@@ -12,6 +12,9 @@ module DemoRuby
     config.load_defaults 6.1
     config.autoload_paths << "#{Rails.root}/lib"
     config.active_job.queue_adapter = :sidekiq
+    config.session_store :cookie_store, key: '_interslice_session'
+    config.middleware.use ActionDispatch::Cookies # Required for all session management
+    config.middleware.use ActionDispatch::Session::CookieStore, config.session_options
 
     # Configuration for the application, engines, and railties goes here.
     #

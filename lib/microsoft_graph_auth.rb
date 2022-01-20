@@ -1,11 +1,11 @@
-equire 'omniauth-oauth2'
+require 'omniauth-oauth2'
 
 module OmniAuth
   module Strategies
     # Implements an OmniAuth strategy to get a Microsoft Graph
     # compatible token from Azure AD
-    class MicrosoftGraphAuth < OmniAuth::Strategies::OAuth2
-      option :name, :microsoft_graph_auth
+    class Outlook < OmniAuth::Strategies::OAuth2
+      option :name, :outlook
 
       DEFAULT_SCOPE = 'openid email profile User.Read'.freeze
 
@@ -16,7 +16,7 @@ module OmniAuth
              :token_url => '/common/oauth2/v2.0/token'
 
       # Send the scope parameter during authorize
-      option :authorize_options, [:scope, :state]
+      option :authorize_options, [:scope]
 
       # Unique ID for the user is the id field
       uid { raw_info['id'] }
@@ -38,6 +38,7 @@ module OmniAuth
           params[:scope] = request.params['scope'] if request.params['scope']
           params[:scope] ||= DEFAULT_SCOPE
           params[:state] = request.params['state'] if request.params['state']
+          params[:abc] = "ABC"
         end
       end
 

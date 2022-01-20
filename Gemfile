@@ -33,7 +33,7 @@ gem 'sidekiq'
 gem 'google-api-client'
 gem 'rmail'
 gem 'omniauth-oauth2'
-gem 'omniauth-rails_csrf_protection'
+# gem 'omniauth-rails_csrf_protection'
 gem 'httparty'
 
 

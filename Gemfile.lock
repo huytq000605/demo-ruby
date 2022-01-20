@@ -274,9 +274,6 @@ GEM
     omniauth-oauth2 (1.7.2)
       oauth2 (~> 1.4)
       omniauth (>= 1.9, < 3)
-    omniauth-rails_csrf_protection (1.0.0)
-      actionpack (>= 4.2)
-      omniauth (~> 2.0)
     os (1.1.4)
     pg (1.2.3)
     public_suffix (4.0.6)
@@ -447,7 +444,6 @@ DEPENDENCIES
   karafka
   listen (~> 3.3)
   omniauth-oauth2
-  omniauth-rails_csrf_protection
   pg
   puma (~> 5.0)
   pundit

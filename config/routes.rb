@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :posts do
     resources :comments, shalow: true
   end
+  get 'api/v1/integrations/microsoft_oauth_callback', to: 'omni#callback'
   # resources :comments
   post 'users', to: 'users#create'
   post 'login', to: 'users#login'
